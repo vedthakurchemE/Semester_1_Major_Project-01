@@ -1,0 +1,7 @@
+Streamlit
+pandas
+matplotlib
+reportlab
+pillow
+sqlite3
+reportlab
