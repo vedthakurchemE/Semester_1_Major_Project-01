@@ -36,7 +36,7 @@ def run():
     st.divider()
     st.subheader("📊 Visualization")
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(6, 6))  # Fixed size figure here
     ax.pie(
         [retained_weight, sample_weight - retained_weight],
         labels=["Retained", "Passed"],
