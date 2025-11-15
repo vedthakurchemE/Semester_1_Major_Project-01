@@ -38,6 +38,17 @@ if "loaded" not in st.session_state:
     st.session_state["loaded"] = True
     st.rerun()      # reload and show actual dashboard
 
+    # --- Description Screen Block ---
+    from project_description import show_description  # <-- Place import here
+
+    if "description_done" not in st.session_state:
+        st.session_state["description_done"] = False
+
+    if not st.session_state["description_done"]:
+        if show_description():
+            st.session_state["description_done"] = True
+            st.rerun()
+        st.stop()
     # --- Description Screen (Shows BEFORE Main Dashboard) ---
 
     if "description_done" not in st.session_state:
