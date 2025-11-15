@@ -1,12 +1,29 @@
 import streamlit as st
 import importlib
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
+import os  # For environment variables
+
+def send_feedback_email(feedback_text, tool_name):
+    sender_email = "vedthakursa@gmail.com"
+    sender_password = os.environ.get("EMAIL_PASSWORD")  # Store securely, e.g. export EMAIL_PASSWORD=your_app_password
+    recipient_email = "vedthakursa@gmail.com"  # Locked
+
+    msg = MIMEText(f"Tool: {tool_name}\nTime: {datetime.now()}\n\nFeedback:\n{feedback_text}")
+    msg['Subject'] = f'New Feedback for {tool_name}'
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(sender_email, sender_password)
+        smtp.send_message(msg)
 
 def run():
     st.set_page_config(page_title="Civil Engineering Lab Suite", layout="centered")
     st.title("🧱 Civil Engineering Lab Suite")
     st.caption("10 Interactive Modules for Basic Civil Engineering")
 
-    # Mapping: technical -> user-friendly name
     modules_dict = {
         "brick_compression_tool": "Brick Compression Strength Tester",
         "cement_consistency_tester": "Cement Consistency Assessment",
@@ -21,16 +38,13 @@ def run():
         "constant_range_demo_1": "Constant Range Graph Demo"
     }
 
-    # Sidebar selection: Only show friendly names
     selected_friendly = st.sidebar.selectbox("Select a Lab Module to Run", list(modules_dict.values()))
-    # Find the technical name for import
     selected_module = [key for key, value in modules_dict.items() if value == selected_friendly][0]
 
     try:
-        # Dynamically import the selected module from the modules folder
         module = importlib.import_module(f"basic_civil_lab.modules.{selected_module}")
 
-        # Run the module
+        # Run the selected module
         if hasattr(module, "run"):
             module.run()
         else:
@@ -39,3 +53,21 @@ def run():
         st.error(f"Module '{selected_module}' not found in the modules folder.")
     except Exception as e:
         st.error(f"Error running module '{selected_module}': {e}")
+
+    # --- FEEDBACK SECTION ---
+    st.markdown("---")
+    st.subheader("Submit Feedback for this Tool")
+
+    feedback_text = st.text_area("Enter your feedback (sent privately to the tool developer):")
+
+    if st.button("Send Feedback"):
+        if feedback_text.strip():
+            try:
+                send_feedback_email(feedback_text, selected_friendly)
+                st.success("Thank you! Your feedback has been emailed directly to the developer and will help improve this tool.")
+            except Exception as err:
+                st.error(f"Failed to send feedback email: {err}")
+        else:
+            st.warning("Feedback field is empty.")
+
+# To run in Streamlit, include: if __name__ == "__main__": run()
