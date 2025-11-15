@@ -54,14 +54,3 @@ def run():
     except Exception as e:
         st.error(f"Error running module '{selected_module}': {e}")
 
-    # --- FEEDBACK SECTION ---
-    st.markdown("---")
-    st.subheader("Submit Feedback for this Tool")
-
-    feedback_text = st.text_area("Enter your feedback (sent privately to the tool developer):")
-
-    # Add a tip about App Passwords for Gmail
-    st.info(
-        "Tip: To enable feedback emailing, set your Gmail App Password as the environment variable 'EMAIL_PASSWORD'. "
-        "Do not use your regular Gmail password if 2-Step Verification is enabled."
-    )
