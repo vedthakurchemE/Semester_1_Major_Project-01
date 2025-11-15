@@ -6,22 +6,24 @@ def run():
     st.title("🧱 Civil Engineering Lab Suite")
     st.caption("10 Interactive Modules for Basic Civil Engineering")
 
-    # List of module names (without .py extension)
-    modules_list = [
-        "brick_compression_tool",
-        "cement_consistency_tester",
-        "cement_fineness_analyzer",
-        "cement_soundness_test",
-        "fineness_modulus_calculator",
-        "flow_table_test",
-        "sand_bulking_analyzer",
-        "sieve_analysis_simulator",
-        "specific_gravity_calculator",
-        "water_absorption_checker"
-    ]
+    # Mapping: technical -> user-friendly name
+    modules_dict = {
+        "brick_compression_tool": "Brick Compression Strength Tester",
+        "cement_consistency_tester": "Cement Consistency Assessment",
+        "cement_fineness_analyzer": "Cement Fineness Analyzer",
+        "cement_soundness_test": "Cement Soundness Evaluation",
+        "fineness_modulus_calculator": "Fineness Modulus Calculator (Aggregate Grading)",
+        "flow_table_test": "Cement Flow Table Test (Workability)",
+        "sand_bulking_analyzer": "Sand Bulking Analyzer",
+        "sieve_analysis_simulator": "Aggregate Sieve Analysis Simulator",
+        "specific_gravity_calculator": "Specific Gravity Calculator (Materials)",
+        "water_absorption_checker": "Water Absorption Checker (Brick/Material)"
+    }
 
-    # Sidebar selection
-    selected_module = st.sidebar.selectbox("Select a Lab Module to Run", modules_list)
+    # Sidebar selection: Only show friendly names
+    selected_friendly = st.sidebar.selectbox("Select a Lab Module to Run", list(modules_dict.values()))
+    # Find the technical name for import
+    selected_module = [key for key, value in modules_dict.items() if value == selected_friendly][0]
 
     try:
         # Dynamically import the selected module from the modules folder
