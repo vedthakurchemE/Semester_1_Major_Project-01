@@ -1,7 +1,6 @@
-# modules/brick_compression_tool.py
-
 import streamlit as st
-
+import matplotlib.pyplot as plt
+import numpy as np
 
 def run():
     st.title("🧱 Brick Compression Strength Tool")
@@ -13,11 +12,9 @@ def run():
     \[
     \text{Compressive Strength (N/mm²)} = \frac{\text{Maximum Load (N)}}{\text{Loaded Area (mm²)}}
     \]
-
     """)
 
     st.subheader("📥 Enter Test Parameters")
-
     col1, col2 = st.columns(2)
 
     with col1:
