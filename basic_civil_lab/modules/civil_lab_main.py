@@ -17,7 +17,8 @@ def run():
         "sand_bulking_analyzer": "Sand Bulking Analyzer",
         "sieve_analysis_simulator": "Aggregate Sieve Analysis Simulator",
         "specific_gravity_calculator": "Specific Gravity Calculator (Materials)",
-        "water_absorption_checker": "Water Absorption Checker (Brick/Material)"
+        "water_absorption_checker": "Water Absorption Checker (Brick/Material)",
+        "constant_range_demo_1": "Constant Range Graph Demo"
     }
 
     # Sidebar selection: Only show friendly names
