@@ -253,6 +253,30 @@ if st.sidebar.checkbox("Show Saved Database"):
     df_db = load_results_from_db()
     st.sidebar.dataframe(df_db)
 
+import datetime
+
+st.markdown("---")
+st.subheader("💬 Feedback for this Tool")
+feedback = st.text_area("Share your thoughts or suggestions:", key=f"feedback_{st.session_state.get('tool_name', '')}")
+if st.button("Submit Feedback", key=f"submit_{st.session_state.get('tool_name', '')}"):
+    if "feedback_tool_list" not in st.session_state:
+        st.session_state["feedback_tool_list"] = []
+    st.session_state["feedback_tool_list"].append({
+        "tool": st.session_state.get('tool_name', 'Unknown Tool'),
+        "text": feedback,
+        "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    })
+    st.success("Thank you for your valuable feedback!")
+
+# Display recent feedback (optional, only for current session)
+if "feedback_tool_list" in st.session_state and st.session_state["feedback_tool_list"]:
+    recent = [f for f in st.session_state["feedback_tool_list"]
+              if f["tool"] == st.session_state.get('tool_name', 'Unknown Tool')]
+    if recent:
+        st.markdown("#### Recent Feedback for this Tool (this session):")
+        for item in recent[-3:][::-1]:
+            st.write(f"🕒 {item['time']}\n- {item['text']}")
+
 # ---- Footer ----
 st.markdown(
     "<hr><p style='text-align:center;font-size:12px;color:gray'>"
