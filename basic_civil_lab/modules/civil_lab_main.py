@@ -65,21 +65,3 @@ def run():
         "Tip: To enable feedback emailing, set your Gmail App Password as the environment variable 'EMAIL_PASSWORD'. "
         "Do not use your regular Gmail password if 2-Step Verification is enabled."
     )
-
-    if st.button("Send Feedback"):
-        if feedback_text.strip():
-            try:
-                send_feedback_email(feedback_text, selected_friendly)
-                st.success(
-                    "Thank you! Your feedback has been emailed directly to the developer and will help improve this tool."
-                )
-            except smtplib.SMTPAuthenticationError:
-                st.error(
-                    "Failed to send feedback: Email authentication error. "
-                    "Make sure you're using an App Password for your Gmail account. "
-                    "See https://support.google.com/mail/?p=BadCredentials"
-                )
-            except Exception as err:
-                st.error(f"Failed to send feedback email: {err}")
-        else:
-            st.warning("Feedback field is empty.")
