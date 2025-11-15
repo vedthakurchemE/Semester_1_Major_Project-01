@@ -6,22 +6,23 @@ def run():
     st.markdown("🚀 Explore **10 interactive experiments** in Optics & Modern Physics, built with Python + Streamlit.")
     st.markdown("---")
 
-    # List of module names (without .py extension)
-    modules_list = [
-        "newtons_rings_simulator",
-        "youngs_double_slit",
-        "diffraction_grating_tool",
-        "laser_wavelength_measure",
-        "photoelectric_effect_explorer",
-        "polarization_visualizer",
-        "blackbody_radiation_plotter",
-        "bohr_model_visualizer",
-        "xray_tube_simulator",
-        "wave_particle_duality_explorer",
-    ]
+    # Technical name -> User-friendly label mapping
+    modules_dict = {
+        "newtons_rings_simulator": "Newton's Rings Simulator",
+        "youngs_double_slit": "Young's Double Slit Experiment",
+        "diffraction_grating_tool": "Diffraction Grating Tool",
+        "laser_wavelength_measure": "Laser Wavelength Measurement",
+        "photoelectric_effect_explorer": "Photoelectric Effect Explorer",
+        "polarization_visualizer": "Polarization Visualizer",
+        "blackbody_radiation_plotter": "Blackbody Radiation Plotter",
+        "bohr_model_visualizer": "Bohr Model Visualizer",
+        "xray_tube_simulator": "X-ray Tube Simulator",
+        "wave_particle_duality_explorer": "Wave-Particle Duality Explorer"
+    }
 
-    # Sidebar selection
-    selected_module = st.sidebar.selectbox("Select a Lab Module to Run", modules_list)
+    # Sidebar only shows user-friendly names!
+    selected_friendly = st.sidebar.selectbox("Select a Lab Experiment", list(modules_dict.values()))
+    selected_module = [k for k, v in modules_dict.items() if v == selected_friendly][0]
 
     try:
         # Dynamically import the selected module from the modules folder
@@ -31,8 +32,8 @@ def run():
         if hasattr(module, "run"):
             module.run()
         else:
-            st.error(f"Module '{selected_module}' does not have a run() function.")
+            st.error(f"Module '{selected_friendly}' does not have a run() function.")
     except ModuleNotFoundError:
         st.error(f"Module '{selected_module}' not found in the modules folder.")
     except Exception as e:
-        st.error(f"Error running module '{selected_module}': {e}")
+        st.error(f"Error running module '{selected_friendly}': {e}")

@@ -13,26 +13,27 @@ def run():
     st.markdown("Select any tool from the sidebar to explore programming logic & applications.")
     st.markdown("---")
 
-    # List of module names (without .py extension)
-    modules_list = [
-        "bmi_calculator",
-        "loan_emi_calculator",
-        "leap_year_checker",
-        "age_classifier",
-        "prime_visualizer",
-        "palindrome_checker",
-        "fibonacci_plotter",
-        "sorting_visualizer",
-        "binary_search_visualizer",
-        "temperature_converter",
-    ]
+    # Technical name -> User-friendly label mapping
+    modules_dict = {
+        "bmi_calculator": "BMI Calculator (Body Mass Index)",
+        "loan_emi_calculator": "Loan EMI Calculator",
+        "leap_year_checker": "Leap Year Checker",
+        "age_classifier": "Age Group Classifier",
+        "prime_visualizer": "Prime Number Visualizer",
+        "palindrome_checker": "Palindrome Checker",
+        "fibonacci_plotter": "Fibonacci Sequence Plotter",
+        "sorting_visualizer": "Sorting Algorithm Visualizer",
+        "binary_search_visualizer": "Binary Search Visualizer",
+        "temperature_converter": "Temperature Converter"
+    }
 
-    # Sidebar selection with unique key
-    selected_module = st.sidebar.selectbox(
+    # Sidebar selection with user-friendly names
+    selected_friendly = st.sidebar.selectbox(
         "Select a Lab Module to Run",
-        modules_list,
+        list(modules_dict.values()),
         key="programming_selectbox"
     )
+    selected_module = [k for k, v in modules_dict.items() if v == selected_friendly][0]
 
     # Initialize storage for inputs & results
     if "module_data" not in st.session_state:
@@ -48,7 +49,7 @@ def run():
             if hasattr(module, "run"):
                 result_data = module.run()  # Expect module.run() to return dict with inputs/results
             else:
-                st.error(f"Module '{selected_module}' does not have a run() function.")
+                st.error(f"Module '{selected_friendly}' does not have a run() function.")
                 result_data = None
 
         printed_output = output_buffer.getvalue().strip()
@@ -63,7 +64,7 @@ def run():
     except ModuleNotFoundError:
         st.error(f"Module '{selected_module}' not found in the modules folder.")
     except Exception as e:
-        st.error(f"Error running module '{selected_module}': {e}")
+        st.error(f"Error running module '{selected_friendly}': {e}")
 
     # --------------------------
     # Save results buttons
@@ -77,7 +78,7 @@ def run():
             all_data = []
             for mod, data in st.session_state.module_data.items():
                 for key, value in data.items():
-                    all_data.append({"Module": mod, "Parameter": key, "Value": value})
+                    all_data.append({"Module": modules_dict.get(mod, mod), "Parameter": key, "Value": value})
             df = pd.DataFrame(all_data)
             csv_bytes = df.to_csv(index=False).encode()
             st.download_button("Download CSV", data=csv_bytes, file_name="module_results.csv", mime="text/csv")
@@ -93,7 +94,7 @@ def run():
             c.setFont("Helvetica", 12)
             y -= 30
             for mod, data in st.session_state.module_data.items():
-                c.drawString(50, y, f"Module: {mod}")
+                c.drawString(50, y, f"Module: {modules_dict.get(mod, mod)}")
                 y -= 20
                 for key, value in data.items():
                     c.drawString(70, y, f"{key}: {value}")

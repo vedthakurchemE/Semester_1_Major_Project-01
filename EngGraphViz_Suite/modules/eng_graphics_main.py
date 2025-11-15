@@ -6,22 +6,23 @@ def run():
     st.title("📘 Engineering Graphics & Visualization Suite")
     st.markdown("🚀 Explore **10 Visualization Tools** designed for Engineering Graphics Lab using Python + Streamlit.")
 
-    # List of module names (without .py extension)
-    modules_list = [
-        "projections_2d",
-        "orthographic_view",
-        "isometric_drawing",
-        "sectioning_parts",
-        "thread_visualizer",
-        "fasteners_identification",
-        "cam_profile_plotter",
-        "gear_tooth_visualizer",
-        "wireframe_viewer",
-        "orthographic_projection",
-    ]
+    # Technical name -> User-friendly label mapping
+    modules_dict = {
+        "projections_2d": "2D Projections Generator",
+        "orthographic_view": "Orthographic View Creator",
+        "isometric_drawing": "Isometric Drawing Tool",
+        "sectioning_parts": "Sectioning Parts Simulator",
+        "thread_visualizer": "Thread Visualizer",
+        "fasteners_identification": "Fasteners Identification Tool",
+        "cam_profile_plotter": "CAM Profile Plotter",
+        "gear_tooth_visualizer": "Gear Tooth Visualizer",
+        "wireframe_viewer": "Wireframe Viewer",
+        "orthographic_projection": "Orthographic Projection Simulator"
+    }
 
-    # Sidebar selection
-    selected_module = st.sidebar.selectbox("Select a Lab Module to Run", modules_list)
+    # Sidebar only shows user-friendly names
+    selected_friendly = st.sidebar.selectbox("Select a Graphics Tool", list(modules_dict.values()))
+    selected_module = [k for k, v in modules_dict.items() if v == selected_friendly][0]
 
     try:
         # Dynamically import the selected module from the modules folder
@@ -31,8 +32,8 @@ def run():
         if hasattr(module, "run"):
             module.run()
         else:
-            st.error(f"Module '{selected_module}' does not have a run() function.")
+            st.error(f"Module '{selected_friendly}' does not have a run() function.")
     except ModuleNotFoundError:
         st.error(f"Module '{selected_module}' not found in the modules folder.")
     except Exception as e:
-        st.error(f"Error running module '{selected_module}': {e}")
+        st.error(f"Error running module '{selected_friendly}': {e}")

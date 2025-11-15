@@ -1,4 +1,3 @@
-# basic_civil_suite/modules/civil_tools_main.py
 import streamlit as st
 import importlib
 import traceback
@@ -8,33 +7,35 @@ def run():
     st.title("🧱 Civil Engineering Suite")
     st.write("🔁 Built using Streamlit for Basic Civil Engineering")
 
-    # List of Civil Tools
-    modules_list = [
-        "soil_moisture_calculator",
-        "brick_estimator",
-        "cement_bag_estimator",
-        "rcc_beam",
-        "bbs_visualizer",
-        "concrete_mix_tool",
-        "water_tank_estimator",
-        "slump_test",
-        "site_level_indicator",
-        "road_gradient_calculator"
-    ]
+    # Technical name: User-friendly label mapping
+    modules_dict = {
+        "soil_moisture_calculator": "Soil Moisture Calculator",
+        "brick_estimator": "Brick Quantity Estimator",
+        "cement_bag_estimator": "Cement Bag Estimator",
+        "rcc_beam": "RCC Beam Designer (Reinforced Concrete)",
+        "bbs_visualizer": "Bar Bending Schedule (BBS) Visualizer",
+        "concrete_mix_tool": "Concrete Mix Design Tool",
+        "water_tank_estimator": "Water Tank Volume Estimator",
+        "slump_test": "Concrete Slump Test Simulator",
+        "site_level_indicator": "Site Level Indicator (Level Tool)",
+        "road_gradient_calculator": "Road Gradient Calculator"
+    }
 
-    selected_module = st.sidebar.selectbox("Select Civil Tool", modules_list)
+    # Show only user-friendly names in UI
+    selected_friendly = st.sidebar.selectbox("Select Civil Tool", list(modules_dict.values()))
+    selected_module = [k for k, v in modules_dict.items() if v == selected_friendly][0]
 
     # Safe module runner
     try:
         module = importlib.import_module(f"basic_civil_suite.modules.{selected_module}")
         if hasattr(module, "run") and callable(module.run):
-            with st.spinner(f"🔄 Loading {selected_module}..."):
+            with st.spinner(f"🔄 Loading {selected_friendly}..."):
                 module.run()
         else:
-            st.warning(f"⚠ Module '{selected_module}' does not define a run() function.")
+            st.warning(f"⚠ Module '{selected_friendly}' does not define a run() function.")
     except ModuleNotFoundError:
         st.error(f"❌ Module '{selected_module}' not found inside modules/.")
     except Exception:
-        st.error(f"⚠️ Unexpected error running '{selected_module}'")
+        st.error(f"⚠️ Unexpected error running '{selected_friendly}'")
         with st.expander("Show Error Details"):
             st.code(traceback.format_exc(), language="python")

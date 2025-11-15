@@ -29,7 +29,7 @@ if "loaded" not in st.session_state:
         for percent_complete in range(100):
             progress_bar.progress(percent_complete + 1)
             loading_text.text(f"Loading... {percent_complete + 1}%")
-            time.sleep(0.02)  # Simulate loading time
+            time.sleep(0.02)
 
     loading_text.empty()
     st.success("✅ Project Loaded!")
@@ -46,13 +46,6 @@ if not st.session_state["description_done"]:
 
     Welcome to the **Smart Manufacturing Analytics Platform** – an innovative dashboard engineered from core Semester 1 subjects, tailored for both engineering students and professionals!
 
-    With this platform, you can:
-
-    - **Visualize complex engineering graphs with ease** using real-world lab modules
-    - **Analyze and interpret data with professional-level accuracy**
-    - **Run automated simulations and forecasting tools**
-    - **Experience interactive modules for Civil, Electronics, Design Thinking, Optics, and more** – all mapped to your curriculum
-
     ### 🌟 Features
 
     - 📊 **Graph Generation:** Instantly create and explore engineering graphs from core subjects, using cutting-edge Python plotting libraries.
@@ -62,19 +55,13 @@ if not st.session_state["description_done"]:
     - 👩‍💼 **Professional Grade:** Utility tools and analytics models ready for faculty, research, or industrial use.
 
     ---
-
-    ### 🚀 Why This Project Stands Out
-    Crafted with modern Python technologies, this suite bridges classroom learning and industrial practice – bringing hands-on analytics, visualization, and automation to every major engineering discipline.  
-    Every tool here is created to make technical concepts interactive, data-driven, and impactful for academic excellence and real-world engineering.
-
-    **Jump in, explore, and elevate your analytical skills!**
+    Crafted with modern Python technologies, this suite bridges classroom learning and industrial practice – bringing hands-on analytics, visualization, and automation to every major engineering discipline.
     """)
     if st.button("Next"):
         st.session_state["description_done"] = True
         st.rerun()
-    st.stop()  # Ensures NOTHING else runs until Next is clicked
+    st.stop()
 
-# ==== DASHBOARD CODE (only runs after Next pressed) ====
 st.title("📘 Semester 1 – Engineering Project Suite")
 st.caption("🔁 Centralized Dashboard for All 12 Labs & Project Suites")
 
@@ -149,6 +136,27 @@ if st.sidebar.button("🔄 Reset"):
     st.rerun()
 st.sidebar.markdown("---")
 
+# ---- File Upload/Download ----
+st.sidebar.header("📤 Upload Data")
+uploaded_file = st.sidebar.file_uploader("Upload CSV, Excel, or Image", type=["csv", "xlsx", "png", "jpg", "jpeg"])
+
+# Store uploaded data for use in modules
+uploaded_data = None
+if uploaded_file:
+    file_type = uploaded_file.type
+    try:
+        if file_type == "text/csv":
+            uploaded_data = pd.read_csv(uploaded_file)
+            st.sidebar.write(uploaded_data.head())
+        elif "excel" in file_type or ".xlsx" in uploaded_file.name:
+            uploaded_data = pd.read_excel(uploaded_file)
+            st.sidebar.write(uploaded_data.head())
+        elif "image" in file_type:
+            uploaded_data = Image.open(uploaded_file)
+            st.sidebar.image(uploaded_data)
+    except Exception as e:
+        st.sidebar.error(f"Error loading file: {e}")
+
 # ---- Safe runner function ----
 def run_project(display_name, module_path):
     with st.expander(f"📌 {display_name}", expanded=True):
@@ -159,7 +167,11 @@ def run_project(display_name, module_path):
                 with st.spinner(f"🔄 Loading {display_name}..."):
                     output_buffer = io.StringIO()
                     with contextlib.redirect_stdout(output_buffer):
-                        result_data = module.run()
+                        # Pass uploaded data to modules (if module accepts it)
+                        try:
+                            result_data = module.run(uploaded_data=uploaded_data)
+                        except TypeError:
+                            result_data = module.run()
                     printed_output = output_buffer.getvalue().strip()
                     input_data, results, graphs = {}, {}, []
 
@@ -188,6 +200,34 @@ def run_project(display_name, module_path):
                                 st.pyplot(g)
                             elif isinstance(g, Image.Image):
                                 st.image(g)
+
+                    # ---- DOWNLOAD BUTTONS ----
+                    st.markdown("---")
+                    # CSV Download
+                    if results:
+                        df = pd.DataFrame(list(results.items()), columns=["Parameter", "Value"])
+                        csv_bytes = df.to_csv(index=False).encode()
+                        st.download_button("Download Results as CSV", data=csv_bytes, file_name=f"{display_name}_results.csv", mime="text/csv")
+
+                        # PDF Download
+                        pdf_buffer = io.BytesIO()
+                        c = canvas.Canvas(pdf_buffer, pagesize=letter)
+                        width, height = letter
+                        y = height - 40
+                        c.setFont("Helvetica-Bold", 14)
+                        c.drawString(50, y, f"Results for {display_name}")
+                        c.setFont("Helvetica", 12)
+                        y -= 30
+                        for key, value in results.items():
+                            c.drawString(50, y, f"{key}: {value}")
+                            y -= 15
+                            if y < 50:
+                                c.showPage()
+                                y = height - 40
+                        c.save()
+                        pdf_buffer.seek(0)
+                        st.download_button("Download Results as PDF", data=pdf_buffer, file_name=f"{display_name}_results.pdf", mime="application/pdf")
+
             else:
                 st.warning(f"⚠ The project `{display_name}` has no `run()` function.")
         except ModuleNotFoundError:
