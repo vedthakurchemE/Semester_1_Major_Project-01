@@ -268,15 +268,6 @@ if st.button("Submit Feedback", key=f"submit_{st.session_state.get('tool_name', 
     })
     st.success("Thank you for your valuable feedback!")
 
-# Display recent feedback (optional, only for current session)
-if "feedback_tool_list" in st.session_state and st.session_state["feedback_tool_list"]:
-    recent = [f for f in st.session_state["feedback_tool_list"]
-              if f["tool"] == st.session_state.get('tool_name', 'Unknown Tool')]
-    if recent:
-        st.markdown("#### Recent Feedback for this Tool (this session):")
-        for item in recent[-3:][::-1]:
-            st.write(f"🕒 {item['time']}\n- {item['text']}")
-
 # ---- Footer ----
 st.markdown(
     "<hr><p style='text-align:center;font-size:12px;color:gray'>"
