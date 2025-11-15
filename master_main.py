@@ -38,6 +38,46 @@ if "loaded" not in st.session_state:
     st.session_state["loaded"] = True
     st.rerun()      # reload and show actual dashboard
 
+    # --- Description Screen (Shows BEFORE Main Dashboard) ---
+
+    if "description_done" not in st.session_state:
+        st.session_state["description_done"] = False
+
+    if not st.session_state["description_done"]:
+        st.markdown("""
+        # 🧑‍🏭 Semester 1 Major Project Suite
+
+        Welcome to the **Smart Manufacturing Analytics Platform** – an innovative dashboard engineered from core Semester 1 subjects, tailored for both engineering students and professionals!
+
+        With this platform, you can:
+
+        - **Visualize complex engineering graphs with ease** using real-world lab modules
+        - **Analyze and interpret data with professional-level accuracy**
+        - **Run automated simulations and forecasting tools**
+        - **Experience interactive modules for Civil, Electronics, Design Thinking, Optics, and more** – all mapped to your curriculum
+
+        ### 🌟 Features
+
+        - 📊 **Graph Generation:** Instantly create and explore engineering graphs from core subjects, using cutting-edge Python plotting libraries.
+        - 🧮 **Data Analysis:** Analyze process, lab, and field data for research, assignments, or real-world insights.
+        - 🛠️ **Toolkits for Accuracy:** Get robust calculators and simulators trusted for precise measurements and predictions.
+        - 👨‍🎓 **Student-Friendly:** Designed for rapid learning, hands-on practice, and understanding complex topics visually.
+        - 👩‍💼 **Professional Grade:** Utility tools and analytics models ready for faculty, research, or industrial use.
+
+        ---
+
+        ### 🚀 Why This Project Stands Out
+
+        Crafted with modern Python technologies, this suite bridges classroom learning and industrial practice – bringing hands-on analytics, visualization, and automation to every major engineering discipline.  
+        Every tool here is created to make technical concepts interactive, data-driven, and impactful for academic excellence and real-world engineering.
+
+        **Jump in, explore, and elevate your analytical skills!**
+        """)
+        if st.button("Next"):
+            st.session_state["description_done"] = True
+            st.rerun()
+        st.stop()  # Prevents the rest of the dashboard from rendering UNTIL Next is clicked
+
 # ——— Main Dashboard Section ———
 # Existing code for navigation, modules, DB viewer, etc. comes after this.
 st.title("📘 Semester 1 – Engineering Project Suite")
