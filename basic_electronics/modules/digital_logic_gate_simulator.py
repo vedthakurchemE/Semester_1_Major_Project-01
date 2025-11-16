@@ -39,4 +39,6 @@ def run():
     for gate, output in results.items():
         st.success(f"{gate}: {output}")
 
+    st.video('https://www.youtube.com/watch?v=btdBPai3ppU'
+             '')
     st.info("💡 Used in digital circuits, processors, ALUs, and embedded systems.")
