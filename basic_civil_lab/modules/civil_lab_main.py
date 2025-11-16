@@ -34,8 +34,7 @@ def run():
         "sand_bulking_analyzer": "Sand Bulking Analyzer",
         "sieve_analysis_simulator": "Aggregate Sieve Analysis Simulator",
         "specific_gravity_calculator": "Specific Gravity Calculator (Materials)",
-        "water_absorption_checker": "Water Absorption Checker (Brick/Material)",
-        "constant_range_demo_1": "Constant Range Graph Demo"
+        "water_absorption_checker": "Water Absorption Checker (Brick/Material)"
     }
 
     selected_friendly = st.sidebar.selectbox("Select a Lab Module to Run", list(modules_dict.values()))
