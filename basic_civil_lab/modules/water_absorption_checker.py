@@ -40,5 +40,5 @@ def run():
     ax.set_ylabel("Weight (g)")
     ax.set_title("Material Weight Before and After Immersion")
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=uZLDpx9mFoc')
     st.caption("🧱 Applies to bricks, coarse aggregates, lightweight blocks, and other absorbent materials.")

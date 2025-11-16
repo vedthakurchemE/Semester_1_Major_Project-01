@@ -59,5 +59,5 @@ def run():
         st.pyplot(fig)
 
         st.success("✅ Gradation Curve Generated. Compare with IS:383 zones to determine if aggregate is well-graded.")
-
+    st.video('https://www.youtube.com/watch?v=5IGB2ugXm_Y')
     st.caption("🔬 Applies to fine & coarse aggregates. Used in pavement, concrete, and RCC mix design.")

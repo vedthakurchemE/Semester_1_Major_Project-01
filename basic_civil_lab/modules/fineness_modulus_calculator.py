@@ -63,4 +63,6 @@ def run():
     ax.grid(True)
     st.pyplot(fig)
 
+    st.video('https://www.youtube.com/watch?v=FT2MS4kyOcY')
+
     st.caption("📌 Fineness Modulus is crucial in concrete mix design and aggregate grading control.")

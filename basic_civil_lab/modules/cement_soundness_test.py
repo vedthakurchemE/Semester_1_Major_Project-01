@@ -43,4 +43,6 @@ def run():
     ax.set_title("Le Chatelier Apparatus Indicator Movement")
     st.pyplot(fig)
 
+    st.video('https://www.youtube.com/watch?v=sBo6yz4dNrI')
+
     st.caption("ℹ️ Excess lime or magnesia causes expansion leading to unsoundness.")

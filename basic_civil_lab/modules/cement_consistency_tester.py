@@ -59,4 +59,6 @@ def run():
     else:
         st.warning("⚠️ No trial has penetration between 10 mm and 12 mm. Try adjusting water content.")
 
+    st.video('https://www.youtube.com/watch?v=qszlGazu4kU')
+
     st.caption("📘 Always perform minimum 3 trials to ensure valid estimation.")
