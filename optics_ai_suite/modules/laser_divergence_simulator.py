@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+import io
 
 def gaussian_beam_radius(w0, wavelength, z):
     """Beam radius w(z) and Rayleigh range z_R as function of z."""
@@ -15,10 +16,15 @@ def divergence_angle(w0, wavelength):
 def single_slit_intensity(a, wavelength, theta):
     """Fraunhofer single-slit diffraction intensity pattern."""
     beta = (np.pi * a * np.sin(theta)) / wavelength
-    # For sinc handling, prevent division by zero
     with np.errstate(divide='ignore', invalid='ignore'):
         intensity = (np.sinc(beta / np.pi)) ** 2
     return intensity
+
+def plot_to_png_bytes(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+    return buf.getvalue()
 
 def run():
     st.set_page_config(page_title="🔴 Laser Divergence & Diffraction", layout="wide")
@@ -32,7 +38,7 @@ def run():
     """, unsafe_allow_html=True)
     st.markdown("---")
 
-    # --- Sidebar inputs ---
+    # Sidebar inputs
     st.sidebar.header("🔧 Beam Parameters")
     wavelength_nm = st.sidebar.slider("Wavelength λ (nm)", 400, 1000, 650, step=10)
     wavelength = wavelength_nm * 1e-9
@@ -44,12 +50,12 @@ def run():
     slit_width_um = st.sidebar.slider("Single Slit Width a (μm)", 1.0, 200.0, 100.0)
     slit_width = slit_width_um * 1e-6
 
-    # --- Beam divergence calculation ---
+    # Beam divergence calculation
     z_vals = np.linspace(0, max_z, 500)
     w_vals, z_R = gaussian_beam_radius(w0, wavelength, z_vals)
     theta_div = divergence_angle(w0, wavelength)
 
-    # --- Beam divergence plot ---
+    # Beam divergence plot
     st.subheader("📈 Gaussian Beam Divergence")
     fig1, ax1 = plt.subplots()
     ax1.plot(z_vals, w_vals * 1e6, color="darkblue", lw=2, label="Beam Radius w(z)")
@@ -59,8 +65,13 @@ def run():
     ax1.set_title("Laser Beam Radius vs Distance")
     ax1.legend()
     st.pyplot(fig1)
+    st.download_button(
+        "Download Divergence Plot",
+        data=plot_to_png_bytes(fig1),
+        file_name="beam_divergence.png",
+        mime="image/png"
+    )
     plt.close(fig1)
-    st.download_button("Download Divergence Plot", data=fig1.canvas.tostring_rgb(), file_name="beam_divergence.png")
 
     st.markdown(f"""
     - **Beam Waist (w₀):** {w0_um:.2f} μm  
@@ -68,7 +79,7 @@ def run():
     - **Divergence Angle (θ):** {np.degrees(theta_div):.2f}°  
     """)
 
-    # --- Diffraction calculation and plot ---
+    # Diffraction calculation and plot
     st.subheader("🌈 Single-Slit Diffraction Pattern")
     theta = np.linspace(-0.01, 0.01, 1000)
     intensity = single_slit_intensity(slit_width, wavelength, theta)
@@ -80,8 +91,13 @@ def run():
     ax2.set_title("Fraunhofer Diffraction from Single Slit")
     ax2.legend()
     st.pyplot(fig2)
+    st.download_button(
+        "Download Diffraction Plot",
+        data=plot_to_png_bytes(fig2),
+        file_name="diffraction_pattern.png",
+        mime="image/png"
+    )
     plt.close(fig2)
-    st.download_button("Download Diffraction Plot", data=fig2.canvas.tostring_rgb(), file_name="diffraction_pattern.png")
 
     central_max_width_deg = 2 * wavelength / slit_width * 180 / np.pi
 
@@ -90,9 +106,13 @@ def run():
     - **Central Max Width ≈** {central_max_width_deg:.2f}°  
     """)
 
-    st.info("📌 This simulator combines Gaussian beam optics and classical wave diffraction.<br>"
-            "You can download the generated plots for your records or reports.",
-            icon="ℹ️")
+    st.info(
+        "📌 This simulator combines Gaussian beam optics and classical wave diffraction.<br>"
+        "You can download the generated plots for your records or reports.",
+        icon="ℹ️"
+    )
 
     st.sidebar.markdown("---")
-    st.sidebar.markdown("**Tips:**\n- Increase slit width for sharper peaks\n- Try longer propagation to see far-field divergence")
+    st.sidebar.markdown(
+        "**Tips:**\n- Increase slit width for sharper peaks\n- Try longer propagation to see far-field divergence"
+    )

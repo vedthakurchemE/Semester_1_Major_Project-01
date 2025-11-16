@@ -11,14 +11,16 @@ from reportlab.lib.pagesizes import letter
 from PIL import Image
 import matplotlib.pyplot as plt
 import time
+import inspect
 
+# ---- Streamlit App Config ----
 st.set_page_config(
     page_title="📘 Semester 1 – Engineering Project Suite",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ==== LOADING SCREEN ====
+# ---- LOADING SCREEN ----
 if "loaded" not in st.session_state:
     st.title("📁 Project is loading...")
     st.caption("Loading main project, please wait...")
@@ -36,7 +38,7 @@ if "loaded" not in st.session_state:
     st.session_state["loaded"] = True
     st.rerun()
 
-# ==== DESCRIPTION SCREEN ====
+# ---- DESCRIPTION SCREEN ----
 if "description_done" not in st.session_state:
     st.session_state["description_done"] = False
 
@@ -45,15 +47,12 @@ if not st.session_state["description_done"]:
     # 🧑‍🏭 Semester 1 Major Project Suite
 
     Welcome to the **Smart Manufacturing Analytics Platform** – an innovative dashboard engineered from core Semester 1 subjects, tailored for both engineering students and professionals!
-
     ### 🌟 Features
-
     - 📊 **Graph Generation:** Instantly create and explore engineering graphs from core subjects, using cutting-edge Python plotting libraries.
     - 🧮 **Data Analysis:** Analyze process, lab, and field data for research, assignments, or real-world insights.
     - 🛠️ **Toolkits for Accuracy:** Get robust calculators and simulators trusted for precise measurements and predictions.
     - 👨‍🎓 **Student-Friendly:** Designed for rapid learning, hands-on practice, and understanding complex topics visually.
     - 👩‍💼 **Professional Grade:** Utility tools and analytics models ready for faculty, research, or industrial use.
-
     ---
     Crafted with modern Python technologies, this suite bridges classroom learning and industrial practice – bringing hands-on analytics, visualization, and automation to every major engineering discipline.
     """)
@@ -62,6 +61,7 @@ if not st.session_state["description_done"]:
         st.rerun()
     st.stop()
 
+# ---- Main Title and Caption ----
 st.title("📘 Semester 1 – Engineering Project Suite")
 st.caption("🔁 Centralized Dashboard for All 12 Labs & Project Suites")
 
@@ -70,7 +70,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.append(PROJECT_ROOT)
 
-# ---- Database setup ----
+# ---- Database Setup ----
 DB_FILE = os.path.join(PROJECT_ROOT, "project_results.db")
 def init_db():
     conn = sqlite3.connect(DB_FILE)
@@ -140,7 +140,6 @@ st.sidebar.markdown("---")
 st.sidebar.header("📤 Upload Data")
 uploaded_file = st.sidebar.file_uploader("Upload CSV, Excel, or Image", type=["csv", "xlsx", "png", "jpg", "jpeg"])
 
-# Store uploaded data for use in modules
 uploaded_data = None
 if uploaded_file:
     file_type = uploaded_file.type
@@ -167,10 +166,10 @@ def run_project(display_name, module_path):
                 with st.spinner(f"🔄 Loading {display_name}..."):
                     output_buffer = io.StringIO()
                     with contextlib.redirect_stdout(output_buffer):
-                        # Pass uploaded data to modules (if module accepts it)
-                        try:
+                        run_params = inspect.signature(module.run).parameters
+                        if "uploaded_data" in run_params:
                             result_data = module.run(uploaded_data=uploaded_data)
-                        except TypeError:
+                        else:
                             result_data = module.run()
                     printed_output = output_buffer.getvalue().strip()
                     input_data, results, graphs = {}, {}, []
@@ -203,7 +202,6 @@ def run_project(display_name, module_path):
 
                     # ---- DOWNLOAD BUTTONS ----
                     st.markdown("---")
-                    # CSV Download
                     if results:
                         df = pd.DataFrame(list(results.items()), columns=["Parameter", "Value"])
                         csv_bytes = df.to_csv(index=False).encode()
@@ -227,7 +225,6 @@ def run_project(display_name, module_path):
                         c.save()
                         pdf_buffer.seek(0)
                         st.download_button("Download Results as PDF", data=pdf_buffer, file_name=f"{display_name}_results.pdf", mime="application/pdf")
-
             else:
                 st.warning(f"⚠ The project `{display_name}` has no `run()` function.")
         except ModuleNotFoundError:
