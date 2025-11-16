@@ -3,10 +3,8 @@ import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def run():
     st.header("🏭 Module 5: Manufacturing Cost Optimization")
-
     st.markdown(r"""
     We minimize the **total production cost function** using calculus.
 
@@ -68,5 +66,6 @@ def run():
     st.pyplot(fig)
 
     st.markdown("""
-    **Use Case**: Determine how many units to produce to achieve minimal manufacturing cost by balancing material, labor, and setup cost trade-offs.
+    **Use Case:**  
+    Determine how many units to produce to achieve minimal manufacturing cost by balancing material, labor, and setup cost trade-offs.
     """)

@@ -48,13 +48,13 @@ def run():
     MC_func = sp.lambdify(q, MC, modules=["numpy"])
     MR_func = sp.lambdify(q, MR, modules=["numpy"])
 
-    # Force element-wise evaluation
+    # Element-wise evaluation
     C_func = np.vectorize(C_func)
     R_func = np.vectorize(R_func)
     MC_func = np.vectorize(MC_func)
     MR_func = np.vectorize(MR_func)
 
-    # Evaluate all functions
+    # Evaluate functions
     C_vals = C_func(q_vals)
     R_vals = R_func(q_vals)
     MC_vals = MC_func(q_vals)
