@@ -45,5 +45,5 @@ def run():
         ax.set_ylabel("Vout (V)")
         ax.grid(True)
         st.pyplot(fig)
-
+        st.video('https://www.youtube.com/watch?v=lLcHgBQ-_l8')
     st.caption("💡 TIP: Choose standard E12 resistor values when designing real circuits.")

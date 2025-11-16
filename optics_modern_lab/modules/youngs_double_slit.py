@@ -44,7 +44,7 @@ def run():
     ax.set_title("Young's Double Slit Interference Pattern")
     ax.grid(True)
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=BosKK5UtOhA')
     fringe_width = (λ * D) / d * 1000  # mm
     st.success(f"📐 Fringe Width β ≈ **{fringe_width:.3f} mm**")
     st.caption("🧠 Used in wavelength estimation and wave property demonstrations.")

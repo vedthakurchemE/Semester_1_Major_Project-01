@@ -59,5 +59,5 @@ def run():
             "Input": [0, 1],
             "Output": [logic_gate_output(gate, x, 0) for x in [0, 1]]
         })
-
+    st.video("https://www.youtube.com/watch?v=oBbnINBWUoY")
     st.caption("🔍 Designed for quick testing of Boolean logic concepts.")

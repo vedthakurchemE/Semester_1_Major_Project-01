@@ -38,6 +38,6 @@ def run():
     ax.set_title(f"PWM Signal @ {freq} Hz, {duty}% Duty Cycle")
     ax.grid(True)
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=JS6a8gDm8v0')
     st.info(f"✅ One PWM cycle = {1/freq:.4f} sec | ON Time ≈ {(duty/100)*(1/freq):.4f} sec | OFF Time ≈ {(1-duty/100)*(1/freq):.4f} sec")
     st.caption("📘 PWM is widely used in microcontrollers like Arduino, ESP32, STM32 for controlling outputs.")

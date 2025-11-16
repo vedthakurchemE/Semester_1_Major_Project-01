@@ -33,5 +33,5 @@ def run():
         "GPIO Pin": GPIO_PINS,
         "State": [pin_states[pin] for pin in GPIO_PINS]
     })
-
+    st.video('https://www.youtube.com/watch?v=huaE9WPXyX4')
     st.caption("💡 Real Raspberry Pi GPIO pins can be controlled using `RPi.GPIO` or `gpiozero` in Python.")

@@ -50,5 +50,5 @@ def run():
         st.dataframe(filtered, use_container_width=True)
     else:
         st.info("Showing all pins and their functions.")
-
+    st.video('https://www.youtube.com/watch?v=g3Or6CTwIcU')
     st.caption("📘 Based on standard ATmega328P (Arduino UNO) layout. You can extend to ESP32, STM32, etc.")

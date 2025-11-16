@@ -46,6 +46,6 @@ def run():
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=zAHiqx5mnnw')
     st.success(f"✅ Radius of {num_rings}th Ring: {radii[-1]:.2f} mm")
     st.caption("💡 Use different wavelengths to simulate colored light (e.g., red = 650 nm, green = 532 nm, blue = 450 nm).")

@@ -42,7 +42,7 @@ def run():
     ax.set_title("Diffraction Angle vs Order")
     ax.grid(True)
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=p8cyO76gxZI')
     if len(angles) > 0:
         st.success(f"✅ Max observable order: n = {n[-1]}, θ = {angles[-1]:.2f}°")
     else:

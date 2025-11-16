@@ -43,6 +43,6 @@ def run():
     ax.set_title(f"Capacitor {mode} Curve (RC = {R*C:.3f} s)")
     ax.grid(True)
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=jzK9wmZMrdg')
     st.success(f"⏱️ RC Time Constant: {R*C:.3f} seconds")
     st.caption("💡 RC circuits are used in filters, timers, and analog smoothing circuits.")
