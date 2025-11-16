@@ -14,7 +14,6 @@ def run():
         "quantum_tunneling_simulator": "Quantum Tunneling Simulator",
         "optical_fiber_visualizer": "Optical Fiber Visualizer",
         "photoelectric_effect_simulator": "Photoelectric Effect Simulator",
-        "hologram_visualizer": "Hologram Visualizer",
         "laser_divergence_simulator": "Laser Divergence Simulator",
         "compton_effect_explorer": "Compton Effect Explorer",
         "atomic_spectra_visualizer": "Atomic Spectra Visualizer",
