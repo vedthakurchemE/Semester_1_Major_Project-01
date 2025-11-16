@@ -47,6 +47,6 @@ def run():
     else:
         st.warning("⚠️ **Below standard. Not recommended for structural work.**")
 
-    st.video('https://www.youtube.com/shorts/VspSVg1tk_Q')
+    st.video('https://youtu.be/VspSVg1tk_Q')
 
     st.caption("🔍 Based on IS: 3495 and IS: 1077 guidelines. Values are for educational purposes.")
