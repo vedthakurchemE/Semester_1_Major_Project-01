@@ -20,7 +20,7 @@ def single_slit_intensity(a, wavelength, theta):
         intensity = (np.sinc(beta / np.pi)) ** 2
     return intensity
 
-def main():
+def run():
     st.set_page_config(page_title="🔴 Laser Divergence & Diffraction", layout="wide")
 
     st.markdown("<h1 style='text-align: center;'>🔴 Laser Beam Divergence & Diffraction</h1>", unsafe_allow_html=True)
@@ -96,6 +96,3 @@ def main():
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("**Tips:**\n- Increase slit width for sharper peaks\n- Try longer propagation to see far-field divergence")
-
-if __name__ == "__main__":
-    main()
