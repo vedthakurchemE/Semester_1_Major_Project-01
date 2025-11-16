@@ -2,9 +2,6 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
 
-# ----------------------------
-# Cam Motion Equations
-# ----------------------------
 def uniform_motion(theta, h):
     return h * theta / np.max(theta)
 
@@ -14,19 +11,14 @@ def shm_motion(theta, h):
 def cycloidal_motion(theta, h):
     return h * (theta / np.max(theta) - (1 / (2 * np.pi)) * np.sin(2 * np.pi * theta / np.max(theta)))
 
-# ----------------------------
-# Streamlit App Runner
-# ----------------------------
 def run():
     st.title("📘 Module 7: Cam Profile Plotter")
     st.markdown("Visualize **displacement diagrams** for cam-follower systems based on motion laws.")
 
-    # Sidebar for input
     motion_type = st.selectbox("📈 Select Follower Motion", ["Uniform", "Simple Harmonic (SHM)", "Cycloidal"])
     total_angle = st.slider("🔁 Cam Rotation Angle (degrees)", 90, 360, 180)
     h = st.slider("📏 Total Lift/Displacement (mm)", 10, 100, 50)
 
-    # Calculate displacement
     theta = np.linspace(0, total_angle, 500)
     if motion_type == "Uniform":
         y = uniform_motion(theta, h)
@@ -38,11 +30,9 @@ def run():
         y = cycloidal_motion(theta, h)
         eq = "s = h·(θ/θ_max - (1/2π)·sin(2π·θ/θ_max))"
 
-    # Plot with Plotly
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=theta, y=y, mode='lines', name='Displacement', line=dict(color='royalblue')))
     fig.add_trace(go.Scatter(x=theta, y=y, fill='tozeroy', mode='none', name='Area'))
-
     fig.update_layout(
         title=f"{motion_type} Displacement Diagram",
         xaxis_title="Cam Angle (°)",
@@ -53,6 +43,5 @@ def run():
 
     st.plotly_chart(fig, use_container_width=True)
 
-    # Motion Law Formula
     with st.expander("📘 Motion Law Equation"):
         st.markdown(f"**{motion_type} Law Equation:**\n\n``````")
