@@ -1,71 +1,52 @@
 import streamlit as st
-import sympy as sp
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 def run():
     st.header("💰 Module 2: Economic Rate of Change (Marginal Analysis)")
 
     st.markdown(r"""
-    Analyze cost and revenue functions using **calculus**:
-
-    - **Marginal Cost (MC)**: \( \frac{dC}{dq} \)
-    - **Marginal Revenue (MR)**: \( \frac{dR}{dq} \)
-    - **Profit Maximization**: Solve where MR = MC
+    Use numeric methods for **marginal cost**, **marginal revenue**, and **profit maximization**:
+    - **Marginal Cost (MC):** derivative of \( C(q) \)
+    - **Marginal Revenue (MR):** derivative of \( R(q) \)
+    - **Profit Maximization:** Find where MR = MC
     """)
 
-    st.subheader("Define Functions")
-    cost_expr_str = st.text_input("Cost Function C(q)", value="5*q + 0.01*q**2 + 100")
-    revenue_expr_str = st.text_input("Revenue Function R(q)", value="10*q")
+    st.subheader("Define Parameters")
+    a_cost = st.slider("Cost: Linear Coefficient (a)", 0.1, 50.0, 5.0)
+    b_cost = st.slider("Cost: Quadratic Coefficient (b)", 0.0, 0.1, 0.01)
+    fixed_cost = st.slider("Fixed Cost", 0, 500, 100)
+    a_rev = st.slider("Revenue: Per Unit (a)", 0.1, 50.0, 10.0)
 
-    q = sp.Symbol('q')
-    try:
-        C = sp.sympify(cost_expr_str)
-        R = sp.sympify(revenue_expr_str)
-    except:
-        st.error("❌ Invalid expression. Please use 'q' as the variable.")
-        return
+    # Quantity range
+    q_vals = np.linspace(1, 300, 500)
+    C_vals = a_cost * q_vals + b_cost * q_vals ** 2 + fixed_cost
+    R_vals = a_rev * q_vals
+    MC_vals = np.gradient(C_vals, q_vals)
+    MR_vals = np.gradient(R_vals, q_vals)
+    Profit_vals = R_vals - C_vals
 
-    # Derivatives
-    MC = sp.diff(C, q)
-    MR = sp.diff(R, q)
-    Profit = R - C
+    # Find optimal quantity (MR ≈ MC)
+    diff = np.abs(MC_vals - MR_vals)
+    idx_opt = np.argmin(diff)
+    q_opt = q_vals[idx_opt]
+    profit_at_opt = Profit_vals[idx_opt]
 
-    # Display formulas
-    st.latex(f"C(q) = {sp.latex(C)}")
-    st.latex(f"R(q) = {sp.latex(R)}")
-    st.latex(f"\\text{{Marginal Cost}} = {sp.latex(MC)}")
-    st.latex(f"\\text{{Marginal Revenue}} = {sp.latex(MR)}")
-    st.latex(f"\\text{{Profit}} = R(q) - C(q) = {sp.latex(Profit)}")
+    # Display functions
+    st.latex(r"C(q) = a\,q + b\,q^2 + \text{fixed}")
+    st.latex(r"R(q) = a_{rev}\,q")
+    st.latex(r"MC = \frac{dC}{dq}")
+    st.latex(r"MR = \frac{dR}{dq}")
+    st.latex(r"\text{Profit} = R(q) - C(q)")
 
-    st.subheader("📊 Plot and Analyze")
-
-    q_vals = np.linspace(0, 300, 500)
-
-    # Convert symbolic expressions to numerical functions
-    C_func = sp.lambdify(q, C, modules=["numpy"])
-    R_func = sp.lambdify(q, R, modules=["numpy"])
-    MC_func = sp.lambdify(q, MC, modules=["numpy"])
-    MR_func = sp.lambdify(q, MR, modules=["numpy"])
-
-    # Element-wise evaluation
-    C_func = np.vectorize(C_func)
-    R_func = np.vectorize(R_func)
-    MC_func = np.vectorize(MC_func)
-    MR_func = np.vectorize(MR_func)
-
-    # Evaluate functions
-    C_vals = C_func(q_vals)
-    R_vals = R_func(q_vals)
-    MC_vals = MC_func(q_vals)
-    MR_vals = MR_func(q_vals)
-
-    # Plotting
+    # Plot
     fig, ax = plt.subplots()
-    ax.plot(q_vals, C_vals, label="Cost C(q)", color='red')
-    ax.plot(q_vals, R_vals, label="Revenue R(q)", color='green')
-    ax.plot(q_vals, MR_vals, '--', label="Marginal Revenue", color='blue')
-    ax.plot(q_vals, MC_vals, '--', label="Marginal Cost", color='orange')
+    ax.plot(q_vals, C_vals, label="Cost C(q)", color="red")
+    ax.plot(q_vals, R_vals, label="Revenue R(q)", color="green")
+    ax.plot(q_vals, MC_vals, "--", label="Marginal Cost", color="orange")
+    ax.plot(q_vals, MR_vals, "--", label="Marginal Revenue", color="blue")
+    ax.axvline(q_opt, color="purple", linestyle="--", label=f"MR=MC @ q ≈ {q_opt:.1f}")
     ax.set_xlabel("Quantity q")
     ax.set_ylabel("Amount")
     ax.set_title("Cost, Revenue & Marginal Analysis")
@@ -73,15 +54,11 @@ def run():
     ax.legend()
     st.pyplot(fig)
 
-    # Solving MR = MC
-    try:
-        q_opt = sp.solve(MC - MR, q)
-        q_opt_val = [float(val.evalf()) for val in q_opt if val.is_real and val >= 0]
-        if q_opt_val:
-            st.success(f"📌 Optimal Quantity (MR = MC): q = {q_opt_val[0]:.2f}")
-        else:
-            st.warning("⚠️ No valid real solution for MR = MC.")
-    except Exception as e:
-        st.warning(f"❌ Unable to solve MR = MC.\nError: {str(e)}")
+    # Show optimal results
+    st.success(f"📌 Maximum Profit when q ≈ {q_opt:.1f} (MR ≈ MC)")
+    st.info(f"💹 Maximum Profit: ₹{profit_at_opt:.2f},  Revenue: ₹{R_vals[idx_opt]:.2f},  Cost: ₹{C_vals[idx_opt]:.2f}")
 
-    st.info("Use this module to optimize production, price strategy, and profit margins.")
+    st.markdown("""
+    **How to use:**  
+    Adjust cost and revenue parameters to optimize production for maximum profit.
+    """)
