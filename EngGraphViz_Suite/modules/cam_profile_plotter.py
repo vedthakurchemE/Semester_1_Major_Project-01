@@ -22,14 +22,15 @@ def run():
     theta = np.linspace(0, total_angle, 500)
     if motion_type == "Uniform":
         y = uniform_motion(theta, h)
-        eq = "s = h·θ / θ_max"
+        eq = r"s = h \cdot \theta / \theta_{max}"
     elif motion_type == "Simple Harmonic (SHM)":
         y = shm_motion(theta, h)
-        eq = "s = (h/2) · (1 - cos(π·θ / θ_max))"
+        eq = r"s = \frac{h}{2}(1 - \cos(\pi \theta / \theta_{max}))"
     elif motion_type == "Cycloidal":
         y = cycloidal_motion(theta, h)
-        eq = "s = h·(θ/θ_max - (1/2π)·sin(2π·θ/θ_max))"
+        eq = r"s = h \left(\frac{\theta}{\theta_{max}} - \frac{1}{2\pi}\sin\left(2\pi \frac{\theta}{\theta_{max}}\right)\right)"
 
+    # Plot with Plotly
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=theta, y=y, mode='lines', name='Displacement', line=dict(color='royalblue')))
     fig.add_trace(go.Scatter(x=theta, y=y, fill='tozeroy', mode='none', name='Area'))
@@ -40,8 +41,8 @@ def run():
         template='plotly_white',
         hovermode='x unified'
     )
-
     st.plotly_chart(fig, use_container_width=True)
 
     with st.expander("📘 Motion Law Equation"):
-        st.markdown(f"**{motion_type} Law Equation:**\n\n``````")
+        st.markdown(f"**{motion_type} Law Equation:**")
+        st.latex(eq)
