@@ -3,9 +3,9 @@ import numpy as np
 import plotly.graph_objects as go
 
 def draw_cube():
-    x = [0, 1, 1, 0, 0, 0, 1, 1, 0]
-    y = [0, 0, 1, 1, 0, 0, 0, 1, 1]
-    z = [0, 0, 0, 0, 0, 1, 1, 1, 1]
+    x = [0, 1, 1, 0, 0, 0, 1, 1]
+    y = [0, 0, 1, 1, 0, 0, 0, 1]
+    z = [0, 0, 0, 0, 1, 1, 1, 1]
     lines = [
         [0, 1], [1, 2], [2, 3], [3, 0],  # bottom face
         [4, 5], [5, 6], [6, 7], [7, 4],  # top face
@@ -23,9 +23,9 @@ def draw_cylinder(resolution=30):
     z_top = np.ones_like(theta)
 
     lines = []
-    for i in range(len(theta)):
-        lines.append([i, i + len(theta)])  # vertical lines
-
+    # vertical lines
+    for i in range(resolution):
+        lines.append([i, i + resolution])
     return list(x_bottom) + list(x_bottom), list(y_bottom) + list(y_bottom), list(z_bottom) + list(z_top), lines
 
 def draw_cone(resolution=30):
@@ -38,12 +38,12 @@ def draw_cone(resolution=30):
 
     x = list(x_base) + [0]
     y = list(y_base) + [0]
-    z = list(z_base) + [1]
+    z = list(z_base) + [h]
 
     lines = []
+    # lines from base to apex
     for i in range(resolution):
-        lines.append([i, resolution])  # lines from base to apex
-
+        lines.append([i, resolution])
     return x, y, z, lines
 
 def plot_wireframe(x, y, z, lines, title):

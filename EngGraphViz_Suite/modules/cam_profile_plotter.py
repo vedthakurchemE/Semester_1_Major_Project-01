@@ -55,4 +55,4 @@ def run():
 
     # Motion Law Formula
     with st.expander("📘 Motion Law Equation"):
-        st.markdown(f"**{motion_type} Law Equation:**\n\n```math\n{eq}\n```")
+        st.markdown(f"**{motion_type} Law Equation:**\n\n``````")
