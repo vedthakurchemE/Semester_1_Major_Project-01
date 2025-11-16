@@ -38,7 +38,9 @@ def run():
             ax.set_title("Soil Sample Weights")
             ax.set_ylabel("Weight (grams)")
             st.pyplot(fig)
+
             st.video('https://www.youtube.com/watch?v=g5XLQaRi9JA')
+
             if moisture < 5:
                 st.warning("⚠️ Soil is very dry — not ideal for agriculture or compaction.")
             elif moisture > 35:
