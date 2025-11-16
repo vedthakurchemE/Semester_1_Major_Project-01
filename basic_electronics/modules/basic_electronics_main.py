@@ -10,12 +10,10 @@ def run():
     modules_dict = {
         "ohms_law_visualizer": "Ohm's Law Visualizer",
         "transistor_biasing_tool": "Transistor Biasing Tool",
-        "ac_waveform_analyzer": "AC Waveform Analyzer",
         "rc_circuit_simulator": "RC Circuit Simulator (Resistor-Capacitor)",
         "rlc_resonance_visualizer": "RLC Resonance Visualizer",
         "digital_logic_gate_simulator": "Digital Logic Gate Simulator",
         "diode_characteristics_plotter": "Diode Characteristics Plotter",
-        "transistor_bias_calculator": "Transistor Bias Calculator",
         "adc_dac_converter": "ADC/DAC Converter Simulator",
         "number_system_converter": "Number System Converter (Binary, Decimal, Hex)"
     }

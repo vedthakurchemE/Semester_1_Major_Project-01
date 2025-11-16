@@ -16,7 +16,6 @@ def run():
         "gear_tooth_visualizer": "Gear Tooth Visualizer",
         "auxiliary_view_builder": "Auxiliary View Builder",
         "wireframe_cube_viewer": "Wireframe Cube Viewer",
-        "cad_exporter": "CAD Exporter/Viewer",
         "cam_displacement_diagram": "CAM Displacement Diagram Creator"
     }
 

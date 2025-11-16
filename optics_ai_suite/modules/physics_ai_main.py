@@ -9,12 +9,10 @@ def run():
     # Technical name -> User-friendly label mapping
     modules_dict = {
         "smart_lens_designer": "Smart Lens Designer (Optical System Builder)",
-        "hologram_visualizer": "Hologram Visualizer",
         "solar_cell_analyzer": "Solar Cell Analyzer",
         "quantum_tunneling_simulator": "Quantum Tunneling Simulator",
         "optical_fiber_visualizer": "Optical Fiber Visualizer",
         "photoelectric_effect_simulator": "Photoelectric Effect Simulator",
-        "laser_divergence_simulator": "Laser Divergence Simulator",
         "compton_effect_explorer": "Compton Effect Explorer",
         "atomic_spectra_visualizer": "Atomic Spectra Visualizer",
         "wave_particle_duality_simulator": "Wave-Particle Duality Simulator"
