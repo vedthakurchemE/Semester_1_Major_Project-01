@@ -14,9 +14,7 @@ def run():
         "sectioning_parts": "Sectioning Parts Simulator",
         "thread_visualizer": "Thread Visualizer",
         "fasteners_identification": "Fasteners Identification Tool",
-        "cam_profile_plotter": "CAM Profile Plotter",
         "gear_tooth_visualizer": "Gear Tooth Visualizer",
-        "wireframe_viewer": "Wireframe Viewer",
         "orthographic_projection": "Orthographic Projection Simulator"
     }
 
