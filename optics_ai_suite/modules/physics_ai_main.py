@@ -1,12 +1,13 @@
 import streamlit as st
 import importlib
+import sys
+import os
 
 def run():
     st.title("🔬 Optics & Modern Physics AI Suite")
     st.markdown("🚀 Explore **10 Interactive Modules** in Optics & Modern Physics using Python + Streamlit.")
     st.markdown("---")
 
-    # Technical name -> User-friendly label mapping
     modules_dict = {
         "smart_lens_designer": "Smart Lens Designer (Optical System Builder)",
         "solar_cell_analyzer": "Solar Cell Analyzer",
@@ -20,20 +21,37 @@ def run():
         "wave_particle_duality_simulator": "Wave-Particle Duality Simulator"
     }
 
-    # Sidebar shows only user-friendly names
     selected_friendly = st.sidebar.selectbox("Select a Physics Tool", list(modules_dict.values()))
     selected_module = [k for k, v in modules_dict.items() if v == selected_friendly][0]
 
-    try:
-        # Dynamically import the selected module from the modules folder
-        module = importlib.import_module(f"optics_ai_suite.modules.{selected_module}")
+    # Try to import with both possible paths
+    module_paths = [
+        f"optics_ai_suite.modules.{selected_module}",
+        f"modules.{selected_module}"  # fallback if running from inside optics_ai_suite
+    ]
 
-        # Run the module
+    imported = False
+    for path in module_paths:
+        try:
+            module = importlib.import_module(path)
+            imported = True
+            break
+        except ModuleNotFoundError:
+            continue
+
+    if imported:
         if hasattr(module, "run"):
             module.run()
         else:
             st.error(f"Module '{selected_friendly}' does not have a run() function.")
-    except ModuleNotFoundError:
-        st.error(f"Module '{selected_module}' not found in the modules folder.")
-    except Exception as e:
-        st.error(f"Error running module '{selected_friendly}': {e}")
+    else:
+        st.error(
+            f"Module '{selected_module}' could not be imported!\n\n"
+            "Possible solutions:\n"
+            "- Make sure you run Streamlit from your project root (not inside 'modules').\n"
+            "- If running from inside 'optics_ai_suite', try 'streamlit run physics_ai_main.py'.\n"
+            "- Double-check spelling/capitalization of filenames and imports."
+        )
+
+if __name__ == "__main__":
+    run()
