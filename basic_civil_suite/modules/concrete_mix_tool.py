@@ -55,7 +55,7 @@ def run():
     st.info(f"Sand: **{sand_kg:.1f} kg**")
     st.info(f"Aggregate: **{agg_kg:.1f} kg**")
     st.caption(f"Dry Volume Used: {dry_volume:.2f} m³")
-
+    st.video('https://www.youtube.com/watch?v=1UdnDy1JihA')
     st.markdown(f"""
     ### ℹ️ Summary
     - Mix Ratio → {cement_p}:{sand_p}:{agg_p}  

@@ -65,7 +65,7 @@ def run():
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=IcDIkt73Xoc')
     if use_filter:
         st.success("✅ Filter capacitor applied to reduce ripple.")
     else:

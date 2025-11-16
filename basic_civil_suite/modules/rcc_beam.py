@@ -59,5 +59,5 @@ def run():
         ax2.grid(True)
 
         st.pyplot(fig)
-
+        st.video('https://www.youtube.com/watch?v=TBTCuZbEISE')
         st.info("ℹ️ Values based on basic assumptions of simply supported RCC beam with UDL.")

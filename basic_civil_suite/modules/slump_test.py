@@ -50,7 +50,7 @@ def run():
     ax.set_ylim(0, 320)
     ax.axis('off')
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=sSyEwRcCJ-0')
     # Slump category info
     if slump < 25:
         st.warning("🔴 Very Low Workability (Dry Mix) – Not suitable for standard concrete placement.")

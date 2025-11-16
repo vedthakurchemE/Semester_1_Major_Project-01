@@ -72,5 +72,5 @@ def run():
     ax.set_aspect('equal')
     ax.axis('off')
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=TkNhAJ7bf50')
     st.caption("ℹ️ Always consider extra bar length for bends, hooks, anchorage, and overlaps.")

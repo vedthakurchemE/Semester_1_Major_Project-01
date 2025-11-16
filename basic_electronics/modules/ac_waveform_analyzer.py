@@ -46,6 +46,6 @@ def run():
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
-
+    st.video('https://www.youtube.com/watch?v=G_ZHz3CPUb8')
     st.success(f"📌 RMS Value: **{rms:.2f} V**")
     st.success(f"📌 Peak Voltage: **{peak:.2f} V**")
