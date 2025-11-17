@@ -5,7 +5,7 @@ import os
 
 def run():
     st.title("🔬 Optics & Modern Physics AI Suite")
-    st.markdown("🚀 Explore **10 Interactive Modules** in Optics & Modern Physics using Python + Streamlit.")
+    st.markdown("🚀 Explore **9 Interactive Modules** in Optics & Modern Physics using Python + Streamlit.")
     st.markdown("---")
 
     modules_dict = {

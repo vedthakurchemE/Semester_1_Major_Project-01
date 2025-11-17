@@ -4,6 +4,8 @@ import numpy as np
 
 def run():
     st.title("🧱 Brick Compression Strength Tool")
+    st.video(
+        "C:\Users\VED THAKUR\OneDrive\Videos\Captures\📘 Semester 1 – Engineering Project Suite · Streamlit - Comet 2025-11-17 17-47-30.mp4")
     st.markdown("""
     Simulate the **compressive strength test** for bricks based on **maximum load and contact area**.
 

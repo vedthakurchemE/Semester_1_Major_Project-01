@@ -4,7 +4,7 @@ import importlib
 def run():
     st.set_page_config(page_title="📘 Engineering Graphics Suite", layout="wide")
     st.title("📘 Engineering Graphics & Visualization Suite")
-    st.markdown("🚀 Explore **10 Visualization Tools** designed for Engineering Graphics Lab using Python + Streamlit.")
+    st.markdown("🚀 Explore **8 Visualization Tools** designed for Engineering Graphics Lab using Python + Streamlit.")
 
     # Technical name -> User-friendly label mapping
     modules_dict = {
