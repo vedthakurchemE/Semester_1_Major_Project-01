@@ -58,6 +58,7 @@ if not st.session_state["description_done"]:
     """)
     if st.button("Next"):
         st.session_state["description_done"] = True
+        st.video("coverpage.mp4")
         st.rerun()
     st.stop()
 
