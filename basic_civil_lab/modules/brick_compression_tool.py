@@ -5,7 +5,6 @@ import numpy as np  # Remove if not used
 
 def run():
     st.title("🧱 Brick Compression Strength Tool")
-
     st.markdown("""
     Simulate the **compressive strength test** for bricks based on **maximum load and contact area**.
 
