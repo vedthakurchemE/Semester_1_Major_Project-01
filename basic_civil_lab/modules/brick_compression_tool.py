@@ -1,11 +1,23 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib.pyplot as plt  # Remove if not used
+import numpy as np  # Remove if not used
+
 
 def run():
     st.title("🧱 Brick Compression Strength Tool")
-    st.video(
-        "C:\Users\VED THAKUR\OneDrive\Videos\Captures\📘 Semester 1 – Engineering Project Suite · Streamlit - Comet 2025-11-17 17-47-30.mp4")
+
+    # Correct local path handling
+    local_video_path = r"C:\Users\VED THAKUR\OneDrive\Videos\Captures\📘 Semester 1 – Engineering Project Suite · Streamlit - Comet 2025-11-17 17-47-30.mp4"
+    try:
+        video_file = open(local_video_path, 'rb')
+        video_bytes = video_file.read()
+        st.video(video_bytes)
+    except Exception as e:
+        st.error(f"Could not load local video: {e}")
+
+    # Or display a YouTube video
+    st.video('https://youtu.be/VspSVg1tk_Q')
+
     st.markdown("""
     Simulate the **compressive strength test** for bricks based on **maximum load and contact area**.
 
@@ -49,6 +61,8 @@ def run():
     else:
         st.warning("⚠️ **Below standard. Not recommended for structural work.**")
 
-    st.video('https://youtu.be/VspSVg1tk_Q')
-
     st.caption("🔍 Based on IS: 3495 and IS: 1077 guidelines. Values are for educational purposes.")
+
+
+if __name__ == "__main__":
+    run()
