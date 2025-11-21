@@ -37,5 +37,6 @@ def run():
     ax.set_ylabel("Diameter (cm)")
     ax.set_title("Flow Table Expansion")
     st.pyplot(fig)
+    st.video('https://www.youtube.com/watch?v=wzquEA2muTk')
     st.video('https://www.youtube.com/watch?v=xgwe2Rj42UQ')
     st.caption("📘 Based on IS 5512: Used in evaluating cement mortar workability.")

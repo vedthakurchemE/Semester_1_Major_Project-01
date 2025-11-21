@@ -40,5 +40,6 @@ def run():
     ax.grid(True)
     ax.legend()
     st.pyplot(fig)
+    st.video('https://www.youtube.com/watch?v=wzquEA2muTk')
     st.video('https://www.youtube.com/watch?v=RHmIItCSSM8')
     st.info("🧾 Engineers adjust sand volume in concrete mix when bulking exceeds 15%.")

@@ -52,5 +52,6 @@ def run():
     ax.set_xlabel("Weight (grams)")
     ax.set_title("Weights for Specific Gravity Test")
     st.pyplot(fig)
+    st.video('https://www.youtube.com/watch?v=eV9iBNwAuGY')
     st.video('https://www.youtube.com/watch?v=mtOcGbP3q5s')
     st.caption("📘 Use fresh, dry cement and kerosene for accurate results.")
