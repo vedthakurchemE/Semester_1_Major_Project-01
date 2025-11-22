@@ -32,7 +32,29 @@ def run():
     name = st.text_input("Enter your name to start the quiz:")
 
     if name:
-        score = 0
+        # Display questions and collect answers
         for i, q in enumerate(questions):
             st.subheader(f"Q{i+1}: {q['question']}")
-            answer = st.radio("Select your answer:", q["options"], key=f"q{i}")
+            st.radio("Select your answer:", q["options"], key=f"q{i}")
+
+        # Check answers button
+        if st.button("Check Answers"):
+            score = 0
+            for i, q in enumerate(questions):
+                user_answer = st.session_state.get(f"q{i}")
+                if user_answer == q["answer"]:
+                    score += 1
+            st.success(f"{name}, your score is {score} out of {len(questions)}")
+
+            # Save to leaderboard
+            st.session_state["leaderboard"].append({"name": name, "score": score})
+
+    # Display leaderboard
+    if st.session_state["leaderboard"]:
+        st.subheader("Leaderboard")
+        leaderboard = sorted(st.session_state["leaderboard"], key=lambda x: x["score"], reverse=True)
+        for entry in leaderboard:
+            st.write(f"{entry['name']}: {entry['score']}")
+
+if __name__ == "__main__":
+    run()
