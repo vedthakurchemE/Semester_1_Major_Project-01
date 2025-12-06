@@ -592,7 +592,7 @@ if uploaded_file:
 
 
 # ---- CACHED MODULE LOADER ----
-@st.cache_data(ttl=3600)
+@st.cache_resource
 def load_project_module(module_path):
     return importlib.import_module(module_path)
 
@@ -792,5 +792,5 @@ with footer_col3:
 # Final footer credit
 st.markdown(
     "<hr><p style='text-align:center;font-size:12px;color:gray;padding:1rem;'>"
-    "Developed with ❤️ by Ved Thakur • Semester 1 • IPS Academy Indore<br>"
+    "Developed by Ved Thakur • Semester 1 • IPS Academy Indore<br>"
     "Built with Python, Streamlit & Modern Web Technologies</p>")
