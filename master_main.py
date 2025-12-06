@@ -348,7 +348,7 @@ if not st.session_state["description_done"]:
     <div style='text-align: center; padding: 2rem 0;'>
         <h1 style='font-size: 3rem; margin-bottom: 0;'>🎓 Ved Thakur</h1>
         <h2 style='color: #666; font-weight: 400;'>Engineering Portfolio Hub</h2>
-        <p style='font-size: 1.2rem; color: #888;'>Semester 1 • IPS Academy Indore</p>
+        <p style='font-size: 1.2rem; color: #888;'>Semester 1 • IPS Academy</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -424,7 +424,7 @@ if not st.session_state["description_done"]:
         ## 👨‍🎓 About Me
 
         **Engineering Student**  
-        IPS Academy, Indore
+        IPS Academy
 
         **Specialization**  
         Computational Engineering  
