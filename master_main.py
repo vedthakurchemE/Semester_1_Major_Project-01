@@ -358,30 +358,30 @@ if not st.session_state["description_done"]:
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
-        <div class='stats-box'>
-            <h2 style='margin: 0; color: white;'>12</h2>
-            <p style='margin: 0; color: white;'>Project Suites</p>
+        <div class='stats-box' style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);'>
+            <h2 style='margin: 0; color: white; font-size: 2.5rem;'>12</h2>
+            <p style='margin: 0; color: white; font-size: 1rem; opacity: 0.95;'>Project Suites</p>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown("""
-        <div class='stats-box'>
-            <h2 style='margin: 0; color: white;'>200+</h2>
-            <p style='margin: 0; color: white;'>Active Users</p>
+        <div class='stats-box' style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);'>
+            <h2 style='margin: 0; color: white; font-size: 2.5rem;'>200+</h2>
+            <p style='margin: 0; color: white; font-size: 1rem; opacity: 0.95;'>Active Users</p>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown("""
-        <div class='stats-box'>
-            <h2 style='margin: 0; color: white;'>5000+</h2>
-            <p style='margin: 0; color: white;'>Lines of Code</p>
+        <div class='stats-box' style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);'>
+            <h2 style='margin: 0; color: white; font-size: 2.5rem;'>5000+</h2>
+            <p style='margin: 0; color: white; font-size: 1rem; opacity: 0.95;'>Lines of Code</p>
         </div>
         """, unsafe_allow_html=True)
     with col4:
         st.markdown("""
-        <div class='stats-box'>
-            <h2 style='margin: 0; color: white;'>75%</h2>
-            <p style='margin: 0; color: white;'>Time Saved</p>
+        <div class='stats-box' style='background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);'>
+            <h2 style='margin: 0; color: white; font-size: 2.5rem;'>75%</h2>
+            <p style='margin: 0; color: white; font-size: 1rem; opacity: 0.95;'>Time Saved</p>
         </div>
         """, unsafe_allow_html=True)
 
