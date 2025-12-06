@@ -795,7 +795,7 @@ with footer_col3:
     st.markdown("""
     <div style='text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px; margin: 1rem 0.5rem;'>
         <h4 style='color: #2E86AB; margin-bottom: 0.5rem;'>🔗 GitHub</h4>
-        <p style='margin: 0;'><a href='https://github.com/vedthakur' target='_blank' 
+        <p style='margin: 0;'><a href='https://github.com/vedthakurchemE' target='_blank' 
            style='color: #495057; text-decoration: none; font-weight: 500;'>
            View projects →</a></p>
     </div>
