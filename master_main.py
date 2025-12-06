@@ -808,7 +808,7 @@ st.markdown("""
         Developed with ❤️ by <strong style='color: #2E86AB;'>Ved Thakur</strong>
     </p>
     <p style='color: #6c757d; font-size: 13px; margin: 0;'>
-        Semester 1 • IPS Academy Indore
+        Semester 1 • IPS Academy
     </p>
     <p style='color: #adb5bd; font-size: 12px; margin-top: 0.5rem;'>
         Built with Python, Streamlit & Modern Web Technologies
