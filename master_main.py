@@ -591,9 +591,12 @@ if uploaded_file:
         st.sidebar.error(f"❌ Error loading file: {e}")
 
 
-# ---- CACHED MODULE LOADER ----
+# ---- MODULE LOADER ----
+# Note: Modules cannot be cached with st.cache_data (not serializable)
+# Using st.cache_resource for non-serializable objects
 @st.cache_resource
 def load_project_module(module_path):
+    """Load a project module. Uses cache_resource since modules aren't serializable."""
     return importlib.import_module(module_path)
 
 
@@ -755,10 +758,13 @@ with feedback_col2:
 # ---- FOOTER WITH CTA ----
 st.markdown("---")
 st.markdown("""
-<div class='footer'>
+<div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            padding: 2rem; 
+            border-radius: 15px; 
+            margin-top: 2rem;'>
     <div style='text-align: center;'>
-        <h3>🤝 Let's Connect</h3>
-        <p>Interested in collaboration or have questions about these projects?</p>
+        <h2 style='color: white; margin-bottom: 0.5rem;'>🤝 Let's Connect</h2>
+        <p style='color: rgba(255,255,255,0.9); font-size: 1.1rem;'>Interested in collaboration or have questions about these projects?</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -767,30 +773,45 @@ footer_col1, footer_col2, footer_col3 = st.columns(3)
 
 with footer_col1:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem;'>
-        <h4>📧 Email</h4>
-        <p><a href='mail to:vedthakursa@gmail.com' style='color: #2E86AB; text-decoration: none;'>vedthakursa@gmail.com</a></p>
+    <div style='text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px; margin: 1rem 0.5rem;'>
+        <h4 style='color: #2E86AB; margin-bottom: 0.5rem;'>📧 Email</h4>
+        <p style='margin: 0;'><a href='mailto:vedthakursa@gmail.com' 
+           style='color: #495057; text-decoration: none; font-weight: 500;'>
+           vedthakursa@gmail.com</a></p>
     </div>
     """, unsafe_allow_html=True)
 
 with footer_col2:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem;'>
-        <h4>💼 LinkedIn</h4>
-        <p><a href='https://github.com/vedthakurchemE' target='_blank' style='color: #2E86AB; text-decoration: none;'>Connect with me →</a></p>
+    <div style='text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px; margin: 1rem 0.5rem;'>
+        <h4 style='color: #2E86AB; margin-bottom: 0.5rem;'>💼 LinkedIn</h4>
+        <p style='margin: 0;'><a href='https://linkedin.com/in/ved-thakur' target='_blank' 
+           style='color: #495057; text-decoration: none; font-weight: 500;'>
+           Connect with me →</a></p>
     </div>
     """, unsafe_allow_html=True)
 
 with footer_col3:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem;'>
-        <h4>🔗 GitHub</h4>
-        <p><a href='https://github.com/vedthakurchemE' target='_blank' style='color: #2E86AB; text-decoration: none;'>View projects →</a></p>
+    <div style='text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 10px; margin: 1rem 0.5rem;'>
+        <h4 style='color: #2E86AB; margin-bottom: 0.5rem;'>🔗 GitHub</h4>
+        <p style='margin: 0;'><a href='https://github.com/vedthakur' target='_blank' 
+           style='color: #495057; text-decoration: none; font-weight: 500;'>
+           View projects →</a></p>
     </div>
     """, unsafe_allow_html=True)
 
-# Final footer credit
-st.markdown(
-    "<hr><p style='text-align:center;font-size:12px;color:gray;padding:1rem;'>"
-    "Developed by Ved Thakur • Semester 1 • IPS Academy Indore<br>"
-    "Built with Python, Streamlit & Modern Web Technologies</p>")
+# Final footer credit with better styling
+st.markdown("""
+<div style='margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 10px; text-align: center;'>
+    <p style='color: #6c757d; font-size: 14px; margin-bottom: 0.5rem; font-weight: 500;'>
+        Developed with ❤️ by <strong style='color: #2E86AB;'>Ved Thakur</strong>
+    </p>
+    <p style='color: #6c757d; font-size: 13px; margin: 0;'>
+        Semester 1 • IPS Academy Indore
+    </p>
+    <p style='color: #adb5bd; font-size: 12px; margin-top: 0.5rem;'>
+        Built with Python, Streamlit & Modern Web Technologies
+    </p>
+</div>
+""", unsafe_allow_html=True)
